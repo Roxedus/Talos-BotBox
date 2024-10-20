@@ -7,4 +7,6 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./cilium/ks.yaml
+  - ./kubelet-serving-cert-approver/ks.yaml
+  - ./metrics-server/ks.yaml
   - ./reloader/ks.yaml
