@@ -1,0 +1,74 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cilium
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: cilium
+      version: 1.16.3
+      sourceRef:
+        kind: HelmRepository
+        name: cilium
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: cilium-helm-values
+  values:
+    hubble:
+      peerService:
+        clusterDomain: ${CLUSTER_DOMAIN}
+      enabled: true
+      metrics:
+        enabled:
+          - dns:query
+          - drop
+          - tcp
+          - flow
+          - port-distribution
+          - icmp
+          - http
+        serviceMonitor:
+          enabled: ${KPS_ENABLED}
+        dashboards:
+          enabled: ${KPS_ENABLED}
+      relay:
+        enabled: true
+        rollOutPods: true
+        prometheus:
+          serviceMonitor:
+            enabled: ${KPS_ENABLED}
+      ui:
+        enabled: false
+        rollOutPods: true
+        ingress:
+          enabled: true
+          annotations:
+            external-dns.alpha.kubernetes.io/target: ${CLUSTER_INGRESS}
+          className: internal
+          hosts: ["hubble.${CLUSTER_INGRESS}"]
+    operator:
+      prometheus:
+        enabled: ${KPS_ENABLED}
+        serviceMonitor:
+          enabled: ${KPS_ENABLED}
+      dashboards:
+        enabled: ${KPS_ENABLED}
+    prometheus:
+      enabled: ${KPS_ENABLED}
+      serviceMonitor:
+        enabled: ${KPS_ENABLED}
+        trustCRDsExist: true
+    dashboards:
+      enabled: ${KPS_ENABLED}

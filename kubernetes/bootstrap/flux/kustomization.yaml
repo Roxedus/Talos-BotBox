@@ -1,0 +1,65 @@
+# IMPORTANT: This file is not tracked by flux and should never be. Its
+# purpose is to only install the Flux components and CRDs into your cluster.
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - github.com/fluxcd/flux2/manifests/install?ref=v2.4.0
+patches:
+  # Resources renamed to match those installed by oci://ghcr.io/fluxcd/flux-manifests
+  - target:
+      kind: ResourceQuota
+      name: critical-pods
+    patch: |
+      - op: replace
+        path: /metadata/name
+        value: critical-pods-flux-system
+  - target:
+      kind: ClusterRoleBinding
+      name: cluster-reconciler
+    patch: |
+      - op: replace
+        path: /metadata/name
+        value: cluster-reconciler-flux-system
+  - target:
+      kind: ClusterRoleBinding
+      name: crd-controller
+    patch: |
+      - op: replace
+        path: /metadata/name
+        value: crd-controller-flux-system
+  - target:
+      kind: ClusterRole
+      name: crd-controller
+    patch: |
+      - op: replace
+        path: /metadata/name
+        value: crd-controller-flux-system
+  - target:
+      kind: ClusterRole
+      name: flux-edit
+    patch: |
+      - op: replace
+        path: /metadata/name
+        value: flux-edit-flux-system
+  - target:
+      kind: ClusterRole
+      name: flux-view
+    patch: |
+      - op: replace
+        path: /metadata/name
+        value: flux-view-flux-system
+  - target:
+      kind: Deployment
+      name: (kustomize-controller|helm-controller|source-controller|image-reflector-controller|image-automation-controller)
+    patch: |
+      - op: replace
+        path: /spec/template/spec/containers/0/args/0
+        value: --events-addr=http://notification-controller.flux-system.svc.talos.roxedus.net.local./
+  - target:
+      kind: Deployment
+      name: source-controller
+    patch: |
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --storage-adv-addr=source-controller.$(RUNTIME_NAMESPACE).svc.talos.roxedus.net.local.

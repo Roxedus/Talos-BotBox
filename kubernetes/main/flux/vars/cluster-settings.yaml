@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-settings
+  namespace: flux-system
+data:
+  CLUSTER_DOMAIN: "talos.roxedus.net.local"
+  CLUSTER_INGRESS: "box.roxedus.net"
+  KPS_ENABLED: "false"
