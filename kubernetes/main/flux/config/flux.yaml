@@ -76,11 +76,11 @@ spec:
       patch: |
         - op: replace
           path: /spec/template/spec/containers/0/args/0
-          value: --events-addr=http://notification-controller.flux-system.svc.${CLUSTER_DOMAIN}./
+          value: --events-addr=http://notification-controller.flux-system.svc.talos.roxedus.net.local./
     - target:
         kind: Deployment
         name: source-controller
       patch: |
         - op: add
           path: /spec/template/spec/containers/0/args/-
-          value: --storage-adv-addr=source-controller.$(RUNTIME_NAMESPACE).svc.${CLUSTER_DOMAIN}.
+          value: --storage-adv-addr=source-controller.$(RUNTIME_NAMESPACE).svc.talos.roxedus.net.local.

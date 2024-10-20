@@ -12,6 +12,8 @@ spec:
       app.kubernetes.io/name: *app
   path: ./kubernetes/main/apps/volsync-system/volsync/app
   prune: true
+  dependsOn:
+    - name: snapshot-controller
   sourceRef:
     kind: GitRepository
     name: bot-box
