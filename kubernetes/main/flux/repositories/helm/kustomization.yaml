@@ -8,7 +8,10 @@ resources:
   - ./cilium.yaml
   - ./cloudnative-pg.yaml
   - ./democratic-csi.yaml
+  - ./external-dns.yaml
   - ./external-secrets.yaml
+  - ./ingress-nginx.yaml
+  - ./jetstack.yaml
   - ./metrics-server.yaml
   - ./piraeus.yaml
   - ./stakater.yaml

@@ -6,5 +6,5 @@ metadata:
   namespace: flux-system
 data:
   CLUSTER_DOMAIN: "talos.roxedus.net.local"
-  CLUSTER_INGRESS: "box.roxedus.net"
+  CLUSTER_INGRESS: "bot.roxedus.net"
   KPS_ENABLED: "false"
