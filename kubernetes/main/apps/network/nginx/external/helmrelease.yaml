@@ -38,10 +38,11 @@ spec:
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: ${CLUSTER_INGRESS}
+          load-balancer.hetzner.cloud/use-private-ip: "false"
           load-balancer.hetzner.cloud/location: hel1
       ingressClassResource:
         name: external
-        default: false
+        default: true
         controllerValue: k8s.io/external
       admissionWebhooks:
         objectSelector:
