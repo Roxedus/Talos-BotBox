@@ -1,0 +1,31 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: external-secrets-to-bw
+  namespace: external-secrets
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: maddy
+      app.kubernetes.io/name: maddy
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            talos.roxedus.net/maddy: "true"
+  egress:
+    - toFQDNs:
+        - matchName: ${MADDY_SERVER}
+      toPorts:
+        - ports:
+            - port: "465"
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: ANY
+          rules:
+            dns:
+              - matchPattern: "*"

@@ -43,6 +43,9 @@ spec:
               - name: cluster-secrets
                 kind: Secret
                 optional: true
+              - name: cluster-external-secrets
+                kind: Secret
+                optional: true
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
