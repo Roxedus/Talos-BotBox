@@ -41,13 +41,14 @@ spec:
     extraArgs:
       - --ingress-class=external
       - --cloudflare-proxied
-      - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
-      - --crd-source-kind=DNSEndpoint
+      - --zone-id-filter=${CLOUDFLARE_ZONE_ID}
     policy: sync
-    sources: [crd, ingress]
+    logLevel: debug
+    sources: [ingress]
     txtOwnerId: default
     txtPrefix: k8s.
-    domainFilters: ["${CLUSTER_INGRESS}"]
+    domainFilters:
+      - ${CLUSTER_INGRESS}
     serviceMonitor:
       enabled: ${KPS_ENABLED}
     podAnnotations:

@@ -38,10 +38,16 @@ spec:
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: ${CLUSTER_INGRESS}
+          load-balancer.hetzner.cloud/disable-private-ingress: "true"
+          load-balancer.hetzner.cloud/disable-public-network: "false"
+          load-balancer.hetzner.cloud/ipv4-rdns: ${CLUSTER_INGRESS}
+          load-balancer.hetzner.cloud/ipv6-rdns: ${CLUSTER_INGRESS}
           load-balancer.hetzner.cloud/location: hel1
+          load-balancer.hetzner.cloud/use-private-ip: "true"
+          load-balancer.hetzner.cloud/uses-proxyprotocol: "true"
       ingressClassResource:
         name: external
-        default: false
+        default: true
         controllerValue: k8s.io/external
       admissionWebhooks:
         objectSelector:
@@ -73,6 +79,7 @@ spec:
         proxy-body-size: 0
         proxy-buffer-size: 16k
         ssl-protocols: TLSv1.3 TLSv1.2
+        use-proxy-protocol: "true"
         use-geoip2: true
         use-forwarded-headers: "true"
       metrics:
