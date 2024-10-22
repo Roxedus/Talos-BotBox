@@ -17,7 +17,7 @@ spec:
         - matchName: ${MADDY_SERVER}
       toPorts:
         - ports:
-            - port: "465"
+            - port: "2525"
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
