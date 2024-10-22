@@ -1,8 +1,7 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: external-secrets-to-bw
-  namespace: external-secrets
+  name: mail-to-maddy
 spec:
   endpointSelector:
     matchLabels:
