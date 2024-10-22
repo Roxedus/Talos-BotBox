@@ -50,10 +50,12 @@ spec:
           serviceMonitor:
             enabled: ${KPS_ENABLED}
       ui:
-        enabled: false
+        enabled: true
         rollOutPods: true
+        service:
+          type: NodePort
         ingress:
-          enabled: true
+          enabled: false
           annotations:
             external-dns.alpha.kubernetes.io/target: ${CLUSTER_INGRESS}
           className: internal
