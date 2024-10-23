@@ -19,6 +19,7 @@ spec:
         selector:
           dnsZones:
             - ${CLUSTER_INGRESS}
+            - bb.${CLUSTER_INGRESS}
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -40,3 +41,4 @@ spec:
         selector:
           dnsZones:
             - ${CLUSTER_INGRESS}
+            - bb.${CLUSTER_INGRESS}

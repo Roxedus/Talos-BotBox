@@ -74,6 +74,7 @@ spec:
       ingress:
         enabled: true
         ingressClassName: external
+        annotations:
         hosts:
           - &host auth.${CLUSTER_INGRESS}
         paths:

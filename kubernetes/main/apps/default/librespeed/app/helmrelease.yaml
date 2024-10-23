@@ -61,7 +61,6 @@ spec:
                   identifier: app
                   port: http
         annotations:
-          #external-dns.alpha.kubernetes.io/target: ${CLUSTER_INGRESS}
           external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
         tls:
           - hosts:

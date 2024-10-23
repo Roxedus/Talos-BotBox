@@ -57,7 +57,7 @@ spec:
         ingress:
           enabled: false
           annotations:
-            external-dns.alpha.kubernetes.io/target: ${CLUSTER_INGRESS}
+            external-dns.alpha.kubernetes.io/target: bb.${CLUSTER_INGRESS}
           className: internal
           hosts: ["hubble.${CLUSTER_INGRESS}"]
     operator:

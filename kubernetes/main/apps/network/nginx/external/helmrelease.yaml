@@ -37,7 +37,7 @@ spec:
           maxUnavailable: 0
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: ${CLUSTER_INGRESS}
+          external-dns.alpha.kubernetes.io/hostname: bb.${CLUSTER_INGRESS}
           load-balancer.hetzner.cloud/disable-private-ingress: "true"
           load-balancer.hetzner.cloud/disable-public-network: "false"
           load-balancer.hetzner.cloud/ipv4-rdns: ${CLUSTER_INGRESS}
