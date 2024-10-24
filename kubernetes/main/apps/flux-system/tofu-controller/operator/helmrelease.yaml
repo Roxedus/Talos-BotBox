@@ -1,0 +1,31 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app tofu-controller
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: tf-controller
+      version: 0.16.0-rc.4
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: *app
+        namespace: flux-system
+  values:
+    clusterDomain: ${CLUSTER_DOMAIN}
+    eventsAddress: http://notification-controller.flux-system.svc.${CLUSTER_DOMAIN}./
+    awsPackage.install: false
+    resources:
+      limits: {}
+      requests: {}
+    # image:
+    #   repository: ghcr.io/flux-iac/tofu-controller
+    #   tag: 0.16.0-rc.4
+    # runner:
+    #   image:
+    #     repository: ghcr.io/flux-iac/tofu-controller-runner
+    #     tag: 0.16.0-rc.4

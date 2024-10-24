@@ -16,3 +16,4 @@ resources:
   - ./metrics-server.yaml
   - ./piraeus.yaml
   - ./stakater.yaml
+  - ./tofu-controller.yaml
