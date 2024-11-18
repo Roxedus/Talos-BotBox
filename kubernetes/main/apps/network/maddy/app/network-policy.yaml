@@ -11,12 +11,18 @@ spec:
     - fromEndpoints:
         - matchLabels:
             talos.roxedus.net/maddy: "true"
+          matchExpressions:
+            - key: io.kubernetes.pod.namespace
+              operator: Exists
+      toPorts:
+        - ports:
+            - port: "2525"
   egress:
     - toFQDNs:
         - matchName: ${MADDY_SERVER}
       toPorts:
         - ports:
-            - port: "2525"
+            - port: "587"
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
