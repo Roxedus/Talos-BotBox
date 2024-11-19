@@ -34,7 +34,6 @@ spec:
       image:
         repository: ghcr.io/goauthentik/server
         tag: 2024.8.3
-      storageClass: local-hostpath
       envFrom:
         - secretRef:
             name: &authSec authentik-secret
@@ -59,7 +58,7 @@ spec:
         licenseKey: MAXMIND_LICENSE_KEY
 
     server:
-      replicas: 1
+      replicas: 2
       initContainers:
         - name: init-db
           image: ghcr.io/onedr0p/postgres-init:16.3
@@ -91,7 +90,7 @@ spec:
       #   limits:
       #     memory: 2Gi
     worker:
-      replicas: 1
+      replicas: 2
       pdb:
         enabled: true
         minAvailable: 1
