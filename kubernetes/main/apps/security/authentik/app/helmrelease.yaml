@@ -39,7 +39,6 @@ spec:
             name: &authSec authentik-secret
     authentik:
       log_level: info
-      avatars: gravatar,initials
       email:
         host: maddy.network.svc.${CLUSTER_DOMAIN}
         port: 2525
