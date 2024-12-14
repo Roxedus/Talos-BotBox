@@ -1,0 +1,29 @@
+# To get the guild ID number for the parameters, open Discord, go to Settings > Advanced and enable developer mode.
+# Right-click on the server/guild title and select "Copy ID" to get the guild ID.
+
+ACCEPTED_GUILD_ID = "${guild}"
+GUILD_NAME_STRING = "${guildName}"
+
+# Only change below here if you know what you are doing.
+
+# Ensure flow is only run during OAuth logins via Discord
+if context['source'].provider_type != "discord":
+    return True
+
+# Get the user-source connection object from the context, and get the access token
+connection = context.get("goauthentik.io/sources/connection")
+if not connection:
+  return False
+access_token = connection.access_token
+
+guilds = requests.get(
+    "https://discord.com/api/users/@me/guilds",
+    headers= {
+        "Authorization": f"Bearer {access_token}",
+    }
+).json()
+
+user_matched = any(ACCEPTED_GUILD_ID == g["id"] for g in guilds)
+if not user_matched:
+    ak_message(f"User is not a member of {GUILD_NAME_STRING}.")
+return user_matched
