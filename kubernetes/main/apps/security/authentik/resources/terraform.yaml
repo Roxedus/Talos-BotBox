@@ -1,0 +1,15 @@
+apiVersion: infra.contrib.fluxcd.io/v1alpha2
+kind: Terraform
+metadata:
+  name: authentik
+spec:
+  interval: 12h
+  #approvePlan: auto
+  sourceRef:
+    kind: GitRepository
+    name: tf-authentik
+  runnerPodTemplate:
+    spec:
+      envFrom:
+        - secretRef:
+            name: authentik-tofu-secret
