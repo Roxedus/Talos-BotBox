@@ -6,3 +6,4 @@ resources:
   - ./namespace.yaml
   # Flux-Kustomizations
   - ./librespeed/ks.yaml
+  - ./rallly/ks.yaml
